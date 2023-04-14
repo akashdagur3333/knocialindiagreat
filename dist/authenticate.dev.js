@@ -1,6 +1,5 @@
 // const jwt = require('jsonwebtoken');
 // const {tokenPrivacy} =require('../backend/data');
-
 // const Authanticate  = (req,res,next)=>{
 //     try{
 //      const token =req.headers.authorization.split(' ')[1]
@@ -8,7 +7,6 @@
 //     req.user =decode
 //      next()
 //     }
-  
 //      catch(error){
 //          if(error.name=="TokenExpiredError"){
 //              res.status(401).json({
@@ -20,5 +18,5 @@
 //          })
 //      }
 //  }
-
 // module.exports={Authanticate}
+"use strict";
