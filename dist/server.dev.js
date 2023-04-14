@@ -39,5 +39,6 @@ server.listen(PORT, function () {
 // app.use('/',product);
 // app.use('/',addCart);
 // app.use('/',order);
-// app.use('/',hrManagement);
-// app.use('/',setting);
+
+app.use('/', hrManagement);
+app.use('/', setting);
