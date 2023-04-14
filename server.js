@@ -7,8 +7,8 @@ var user= require('./auth');
 // var product=require('./routing/categoryRouting/product-route');
 // var addCart=require('./routing/categoryRouting/addCart-route');
 // var order=require('./routing/categoryRouting/orders-route');
-// var hrManagement=require('./Routes/trainingRoute');
-// var setting=require('./Routes/settingRoute');
+var hrManagement=require('./Routes/trainingRoute');
+var setting=require('./Routes/settingRoute');
 const cors = require('cors');
 
 
@@ -32,5 +32,5 @@ app.use('/user',user);
 // app.use('/',addCart);
 // app.use('/',order);
 
-// app.use('/',hrManagement);
-// app.use('/',setting);
+app.use('/',hrManagement);
+app.use('/',setting);
