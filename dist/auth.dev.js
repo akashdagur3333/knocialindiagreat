@@ -4,7 +4,7 @@ var express = require('express');
 
 var router = express.Router(); // const {Authanticate}=require('../backend/authenticate')
 
-var userController = require('../backend/controller/userController');
+var userController = require('./controller/userController');
 
 router.post('/register', userController.register);
 router.post('/login', userController.login); // router.get('/checkToken',Authanticate,userController.checkToken);

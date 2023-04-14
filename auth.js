@@ -2,7 +2,7 @@ const  express =require('express');
 const router = express.Router();
 // const {Authanticate}=require('../backend/authenticate')
 
-var userController =require('../backend/controller/userController');
+var userController =require('./controller/userController');
 
 router.post('/register',userController.register);
 router.post('/login',userController.login);
