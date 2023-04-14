@@ -1,6 +1,7 @@
 const mongoose =require('mongoose');
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb+srv://ramangroverind:Akashraman%40123@kcms.twusqtg.mongodb.net/knocial_india',(err)=>{
+//mongodb+srv://ramangroverind:Akashraman%40123@kcms.twusqtg.mongodb.net/knocial_india
+mongoose.connect('mongodb://localhost:27017/knocial_india',(err)=>{
     if(!err){
       
         // console.log(db);
