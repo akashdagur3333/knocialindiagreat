@@ -28,7 +28,7 @@ var server = http.createServer(function (req, res) {
 var app = express();
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: 'https://knocialindia-965e6.web.app'
 }));
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
