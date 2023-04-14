@@ -38,11 +38,10 @@ var PORT = process.env.PORT || 3000;
 server.listen(PORT, function () {
   return console.log("server is running on port 3000");
 }); // app.listen(3000,()=>console.log("Server started at port 3000"));
-
-app.use('/user', user);
-app.use('/', category);
-app.use('/', product);
-app.use('/', addCart);
-app.use('/', order);
-app.use('/', hrManagement);
-app.use('/', setting);
+// app.use('/user',user);
+// app.use('/',category);
+// app.use('/',product);
+// app.use('/',addCart);
+// app.use('/',order);
+// app.use('/',hrManagement);
+// app.use('/',setting);

@@ -26,11 +26,11 @@ server.listen(PORT,()=>console.log("server is running on port 3000"))
 
 
 
-app.use('/user',user);
-app.use('/',category);
-app.use('/',product);
-app.use('/',addCart);
-app.use('/',order);
+// app.use('/user',user);
+// app.use('/',category);
+// app.use('/',product);
+// app.use('/',addCart);
+// app.use('/',order);
 
-app.use('/',hrManagement);
-app.use('/',setting);
+// app.use('/',hrManagement);
+// app.use('/',setting);
