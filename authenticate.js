@@ -1,4 +1,3 @@
-const { response } = require('express');
 const jwt = require('jsonwebtoken');
 const {tokenPrivacy} =require('../backend/data');
 
