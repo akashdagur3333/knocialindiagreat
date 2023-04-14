@@ -154,7 +154,8 @@ var login = function login(req, res) {
           if (result) {
             var token = jwt.sign({
               email: User.email,
-              role: User.role
+              role: User.role,
+              id: User._id
             }, tokenPrivacy, {
               expiresIn: '24h'
             });
@@ -185,6 +186,16 @@ var login = function login(req, res) {
       });
     }
   });
+};
+
+var getAllUser = function getAllUser(req, res) {
+  user.find(function (err, docs) {
+    if (!err) {
+      res.json(docs);
+    } else {
+      res.json(err);
+    }
+  });
 }; // const forget_password = async(req,res)=>{
 //     try{
 //         // console.log(socket.dnsserver());
@@ -207,9 +218,38 @@ var login = function login(req, res) {
 // }
 
 
+var deleteUser = function deleteUser(req, res) {
+  var deleteid = req.params._id;
+  user.findByIdAndDelete(deleteid, function (err, del) {
+    if (!err) {
+      res.json(del);
+    } else {
+      res.json(err);
+    }
+  });
+};
+
+var updateUser = function updateUser(req, res) {
+  user.findByIdAndUpdate(req.params._id, {
+    username: req.body.username,
+    email: req.body.email,
+    role: req.body.role,
+    status: req.body.status
+  }, function (docs, err) {
+    if (!err) {
+      res.json(docs);
+    } else {
+      res.json(err);
+    }
+  });
+};
+
 module.exports = {
   register: register,
   login: login,
   count: count,
-  checkToken: checkToken
+  checkToken: checkToken,
+  getAllUser: getAllUser,
+  deleteUser: deleteUser,
+  updateUser: updateUser
 };

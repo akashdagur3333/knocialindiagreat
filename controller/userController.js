@@ -4,6 +4,7 @@ const bcrypt =require('bcryptjs');
 const jwt =require('jsonwebtoken');
 const connection =require('../db');
 const { tokenPrivacy } = require('../data');
+const { body } = require('express-validator');
 // const { user } = require('../auth');
 // const nodemailer= require('nodemailer');
 // const randomstring =require('randomstring');
@@ -61,11 +62,9 @@ const register =(req,res)=>{
        
         if(registerUser==null){
             
-            bcrypt.hash(req.body.password,10,function(err,hasspass){
+        bcrypt.hash(req.body.password,10,function(err,hasspass){
         if(err){
-           res.json({
-            error:err
-           })
+          res.json(err)
         }
     counterSchema.findOneAndUpdate(
         {id:"user_seq"},
@@ -82,19 +81,19 @@ const register =(req,res)=>{
             }
                 var User = new user({
                     _id:seqId,
-                    username:req.body.username,
+                    username:req.body.user_name,
                     email:req.body.email,
                     password:hasspass,
-                    role:"user",
+                    phone_no:req.body.phone_no,
+                    role:req.body.roles,
                     status:false
-
-                }); 
+}); 
                 User.save((err,doc)=>{
                if(!err){
                 res.send(doc);
                }
                else{
-                console.log(err);
+                res.send(err)
                }
                 })
             }
@@ -125,6 +124,7 @@ const count =(req,res)=>{
 
 const login =(req,res)=>{
     var email =req.body.email
+    console.log(email)
     var password=req.body.password
 
     user.findOne({email}).then(User=>{
@@ -139,7 +139,7 @@ const login =(req,res)=>{
              console.log(err)
              }
              if(result){
-                 let token = jwt.sign({email:User.email,role:User.role},tokenPrivacy,{expiresIn:'24h'})
+                 let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id},tokenPrivacy,{expiresIn:'24h'})
                  let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'48h'})
                  res.json({
                      message:'login Successfully',
@@ -170,6 +170,18 @@ const login =(req,res)=>{
     })
 }
 
+const getAllUser = (req,res)=>{
+    user.find((err,docs)=>{
+        if(!err){
+            res.json(docs);
+        }
+        else{
+            res.json(err);
+        }
+    })
+}
+
+
 // const forget_password = async(req,res)=>{
 //     try{
 //         // console.log(socket.dnsserver());
@@ -192,4 +204,64 @@ const login =(req,res)=>{
 //     }
 // }
 
-module.exports ={register,login,count,checkToken}
+const deleteUser =(req,res)=>{
+   var deleteid=req.params._id;
+    user.findByIdAndDelete(deleteid,(err,del)=>{
+        if(!err){
+            res.json(del);
+        }
+        else{
+            res.json(err);
+        }
+    })
+
+}
+
+
+
+const updateUser =(req,res)=>{
+    if(!req.body.password){
+        user.findByIdAndUpdate(req.params._id,{
+            username:req.body.user_name,
+            email:req.body.email,
+            phone_no:req.body.phone_no,
+            role:req.body.roles,
+            status:req.body.status,
+            // password:req.body.password,
+          },(docs,err)=>{
+            if(!err){
+                res.json(docs);
+            }
+            else{
+                res.json(err)
+            }
+          })    
+    }
+    else{
+        console.log('Password:'+req.body.password+' '+'username: '+req.body.user_name);
+        bcrypt.hash(req.body.password,10,function(err,hasspass){
+            if(err){
+              res.json(err)
+            }
+        user.findByIdAndUpdate(req.params._id,{
+            username:req.body.user_name,
+            email:req.body.email,
+            phone_no:req.body.phone_no,
+            role:req.body.roles,
+            status:req.body.status,
+            password:hasspass,
+          },(docs,err)=>{
+            if(!err){
+                res.json(docs);
+            }
+            else{
+                res.json(err)
+            }
+          })
+    
+    }
+    )}
+
+       
+}
+module.exports ={register,login,count,checkToken,getAllUser,deleteUser,updateUser}

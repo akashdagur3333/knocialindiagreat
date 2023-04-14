@@ -1,4 +1,4 @@
-const authPage =(permission)=>{
+const authRole =(permission)=>{
     return (req,res,next)=>{
         const userRole=req.body.role;
         if(permission.includes(userRole)){
@@ -11,4 +11,4 @@ const authPage =(permission)=>{
         }
     }
 }
-module.exports={authPage};
+module.exports={authRole};
