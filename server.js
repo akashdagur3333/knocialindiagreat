@@ -26,7 +26,7 @@ app.listen(PORT,()=>console.log("server is running on 3000"))
 
 
 
-// app.use('/user',user);
+app.use('/user',user);
 // app.use('/',category);
 // app.use('/',product);
 // app.use('/',addCart);
