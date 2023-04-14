@@ -79,9 +79,14 @@ var updateVsrvalue = function updateVsrvalue(req, res) {
   });
 };
 
+var great = function great(req, res) {
+  return res.end("great work");
+};
+
 module.exports = {
   addVsrValue: addVsrValue,
   getAllVsrValue: getAllVsrValue,
   deleteVsrValue: deleteVsrValue,
-  updateVsrvalue: updateVsrvalue
+  updateVsrvalue: updateVsrvalue,
+  great: great
 };

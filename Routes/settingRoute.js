@@ -65,5 +65,6 @@ router.post('/vsrValue',vsrValueController.addVsrValue);
 router.get('/vsrValue',vsrValueController.getAllVsrValue);
 router.delete('/vsrValue/:id',vsrValueController.deleteVsrValue);
 router.put('/vsrValue/:id',vsrValueController.updateVsrvalue);
+// router.get('/great',vsrValueController.great);
 
 module.exports=router;

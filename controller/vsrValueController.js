@@ -73,4 +73,7 @@ const updateVsrvalue=(req,res)=>{
     })
 }
 
-module.exports={addVsrValue,getAllVsrValue,deleteVsrValue,updateVsrvalue}
+const great=(req,res)=>res.end("great work")
+
+
+module.exports={addVsrValue,getAllVsrValue,deleteVsrValue,updateVsrvalue,great}

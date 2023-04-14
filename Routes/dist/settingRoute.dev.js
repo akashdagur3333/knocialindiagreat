@@ -57,5 +57,6 @@ router.put('/shift/:id', shiftController.updateShift);
 router.post('/vsrValue', vsrValueController.addVsrValue);
 router.get('/vsrValue', vsrValueController.getAllVsrValue);
 router["delete"]('/vsrValue/:id', vsrValueController.deleteVsrValue);
-router.put('/vsrValue/:id', vsrValueController.updateVsrvalue);
+router.put('/vsrValue/:id', vsrValueController.updateVsrvalue); // router.get('/great',vsrValueController.great);
+
 module.exports = router;
