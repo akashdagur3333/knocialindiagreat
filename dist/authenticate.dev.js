@@ -2,7 +2,7 @@
 
 var jwt = require('jsonwebtoken');
 
-var _require = require('../backend/data'),
+var _require = require('./data'),
     tokenPrivacy = _require.tokenPrivacy;
 
 var Authanticate = function Authanticate(req, res, next) {

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const {tokenPrivacy} =require('../backend/data');
+const {tokenPrivacy} =require('./data');
 
 const Authanticate  = (req,res,next)=>{
     try{
