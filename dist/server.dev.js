@@ -7,21 +7,14 @@ var bodyParser = require('body-parser');
 var _require = require('./db'),
     Mongoose = _require.Mongoose;
 
-var http = require('http');
+var http = require('http'); // var user= require('./auth');
+// var category=require('./routing/categoryRouting/category-route');
+// var product=require('./routing/categoryRouting/product-route');
+// var addCart=require('./routing/categoryRouting/addCart-route');
+// var order=require('./routing/categoryRouting/orders-route');
+// var hrManagement=require('./Routes/trainingRoute');
+// var setting=require('./Routes/settingRoute');
 
-var user = require('./auth');
-
-var category = require('./routing/categoryRouting/category-route');
-
-var product = require('./routing/categoryRouting/product-route');
-
-var addCart = require('./routing/categoryRouting/addCart-route');
-
-var order = require('./routing/categoryRouting/orders-route');
-
-var hrManagement = require('./Routes/trainingRoute');
-
-var setting = require('./Routes/settingRoute');
 
 var cors = require('cors');
 
