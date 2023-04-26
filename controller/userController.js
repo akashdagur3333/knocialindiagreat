@@ -124,15 +124,17 @@ const count =(req,res)=>{
 
 const login =(req,res)=>{
     var email =req.body.email
-    console.log(email)
     var password=req.body.password
-
-    user.findOne({email}).then(User=>{
+    var height=req.body.height
+    var width=req.body.width
+    console.log(height+' '+width);
+    if(width>=800 && height>=350){
+  user.findOne({email}).then(User=>{
         console.log(User)
        if(User){
-       // console.log(password);
-       // var pass =User.password
-       // console.log(pass);
+       console.log(password);
+       var pass =User.password
+       console.log(pass);
        if(User.status==false){
         bcrypt.compare(password,User.password,function(err,result){
             if(err){
@@ -168,6 +170,13 @@ const login =(req,res)=>{
        }
 
     })
+    }
+    else{
+        res.json({
+            message:'Login With Laptop'
+        })
+    }
+  
 }
 
 const getAllUser = (req,res)=>{

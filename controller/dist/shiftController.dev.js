@@ -28,7 +28,7 @@ var addShift = function addShift(req, res) {
       seqId = cd.seq;
     }
 
-    var shift = new Package({
+    var shift = new Shift({
       _id: seqId,
       shift_name: req.body.shift_name,
       shift_start: req.body.shift_start,
@@ -40,6 +40,7 @@ var addShift = function addShift(req, res) {
       break2_duration: req.body.break2_duration,
       break3: req.body.break3,
       break3_duration: req.body.break3_duration,
+      status: req.body.status,
       created_by: req.body.created_by,
       created_at: Date.now()
     });
@@ -86,6 +87,7 @@ var updateShift = function updateShift(req, res) {
     break2_duration: req.body.break2_duration,
     break3: req.body.break3,
     break3_duration: req.body.break3_duration,
+    status: req.body.status,
     updated_by: req.body.created_by,
     updated_at: Date.now()
   }, function (docs, err) {

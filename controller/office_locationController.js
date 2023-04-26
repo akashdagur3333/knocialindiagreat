@@ -18,7 +18,8 @@ const addLocation=(req,res)=>{
             }
             var office_location= new Office_location({
                 _id:seqId,
-                office_name:req.body.office_name,
+                office_code:req.body.office_code,
+                location:req.body.location,
                 address:req.body.address, 
                 created_by:req.body.created_by,
                 created_at:Date.now()
@@ -61,7 +62,8 @@ const deleteLocations= (req,res)=>{
 
 const updateLocations=(req,res)=>{
     Office_location.findByIdAndUpdate(req.params.id,{
-        office_name:req.body.office_name,
+        office_code:req.body.office_code,
+        location:req.body.location,
         address:req.body.address, 
         updated_by:req.body.created_by,
         updated_at:Date.now()

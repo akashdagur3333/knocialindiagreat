@@ -5,48 +5,69 @@ const counterSchema=require('../module/counter');
 
 const addStudents=(req,res)=>{
     var req=req.body;
-    counterSchema.findOneAndUpdate(
-        {id:"students_seq"},
-        {"$inc":{"seq":1} },{new:true},
-        (err,cd)=>{
-            let seqId;
-            if(cd==null){
-                const newval =new counterSchema({id:"students_seq",seq:1});
-                newval.save();
-                seqId=1;
-            }
-            else{
-                seqId=cd.seq;
-            }
-            var students= new Students({
-                _id:seqId,
-                drv_id:req.drv_id,
-                clg_id:req.clg_id,
-                clg_name:req.clg_name,
-                drive_type:req.drive_type,
-                aadhar_number:req.aadhar_number,
-                name:req.name,
-                sex:req.sex,
-                qualification:req.qualification,
-                stream:req.stream,
-                package:req.package,
-                contact_no1:req.contact_no1,
-                contact_no2:req.contact_no2,
-                status:req.status,
-                hr_remarks:req.hr_remarks,
-                created_by:req.created_by,
-                created_at:Date.now()
-            });
-            students.save((err,docs)=>{
-                if(!err){
-                    res.json(docs);
+    var adhar=req.aadhar_number;
+    console.log(adhar);
+    Students.findOne({aadhar_number:adhar}).then(data=>{
+        if(data==null){
+            counterSchema.findOneAndUpdate(
+                {id:"students_seq"},
+                {"$inc":{"seq":1} },{new:true},
+                (err,cd)=>{
+                    let seqId;
+                    if(cd==null){
+                        const newval =new counterSchema({id:"students_seq",seq:1});
+                        newval.save();
+                        seqId=1;
+                    }
+                    else{
+                        seqId=cd.seq;
+                    }
+                    var students= new Students({
+                        _id:seqId,
+                        drv_id:req.drv_id,
+                        clg_id:req.clg_id,
+                        clg_name:req.clg_name,
+                        category:req.category,
+                        type:req.type,
+                        drive_type:req.drive_type,
+                        aadhar_number:req.aadhar_number,
+                        name:req.name,
+                        sex:req.sex,
+                        qualification:req.qualification,
+                        stream:req.stream,
+                        package:req.package,
+                        contact_no1:req.contact_no1,
+                        contact_no2:req.contact_no2,
+                        status:req.status,
+
+                        college_name:req.college_name,
+                        college_city:req.college_city,
+                        college_state:req.college_state,
+                        college_pin_code:req.college_pin_code,
+                        college_type:req.college_type,
+
+                        hr_remarks:req.hr_remarks,
+                        created_by:req.created_by,
+                        created_at:Date.now()
+                    });
+                    students.save((err,docs)=>{
+                        if(!err){
+                            res.json(docs);
+                        }
+                        else{
+                            res.json(err);
+                        }
+                    });
                 }
-                else{
-                    res.json(err);
-                }
-            });
+            )
         }
-    )
+        else{
+                res.json({
+                    message:"Student already Saved"
+                })
+        }
+    })
+    
         }
 
 const getAllStudents=(req,res)=>{    

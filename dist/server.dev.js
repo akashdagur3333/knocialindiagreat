@@ -19,21 +19,44 @@ var hrManagement = require('./Routes/trainingRoute');
 
 var setting = require('./Routes/settingRoute');
 
-var cors = require('cors');
+var reporting = require('./Routes/reportingRoute');
 
-var server = http.createServer(function (req, res) {
-  res.writeHead(200);
-  res.end("hello world");
-});
+var cors = require('cors'); // const server=http.createServer((req,res)=>{
+//     res.writeHead(200);
+//     res.end("hello world")
+// });
+
+
 var app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //https://knocialindia-965e6.web.app
+
 app.use(cors({
-  origin: 'https://knocialindia-965e6.web.app'
-}));
-var PORT = process.env.PORT || 3000;
-app.listen(PORT, function () {
-  return console.log("server is running on 3000");
-}); // app.listen(PORT,()=>console.log("Server started at port 3000"));
+  origin: '*'
+})); // const PORT =process.env.PORT || 3000;
+// app.listen(PORT,()=>console.log("server is running on 3000"))
+
+app.listen(3000, function () {
+  return console.log("Server started at port 3000");
+}); // var date=new Date();
+// var hours1 = date.getHours();
+// // current minutes
+// var minutes1 = date.getMinutes();
+// // current seconds
+// var seconds1 = date.getSeconds();
+// setInterval(()=>{
+//     var date =new Date();
+//     // current hours
+//     var hours = date.getHours();
+//     // current minutes
+//     var minutes = date.getMinutes();
+//     // current seconds
+//     var seconds = date.getSeconds();
+// //  total_hour=hours-hours1;
+// //  total_minutes=minutes-minutes1;
+// //  total_seconds=seconds-seconds1;
+// //  var time=total_hour+':'+total_minutes+':'+total_seconds;
+//  console.log(time)
+// },5000);
 
 app.use('/user', user); // app.use('/',category);
 // app.use('/',product);
@@ -42,3 +65,4 @@ app.use('/user', user); // app.use('/',category);
 
 app.use('/', hrManagement);
 app.use('/', setting);
+app.use('/', reporting);

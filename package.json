@@ -25,6 +25,7 @@
     "path": "^0.12.7",
     "random": "^4.1.0",
     "randomstring": "^1.2.3",
+    "screen-size-detector": "^1.0.4",
     "socket.io": "^4.6.0",
     "string": "^3.3.3"
   }

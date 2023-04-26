@@ -12,7 +12,10 @@ var jwt = require('jsonwebtoken');
 var connection = require('../db');
 
 var _require2 = require('../data'),
-    tokenPrivacy = _require2.tokenPrivacy; // const { user } = require('../auth');
+    tokenPrivacy = _require2.tokenPrivacy;
+
+var _require3 = require('express-validator'),
+    body = _require3.body; // const { user } = require('../auth');
 // const nodemailer= require('nodemailer');
 // const randomstring =require('randomstring');
 // const config =require('../config/config');
@@ -69,9 +72,7 @@ var register = function register(req, res) {
     if (registerUser == null) {
       bcrypt.hash(req.body.password, 10, function (err, hasspass) {
         if (err) {
-          res.json({
-            error: err
-          });
+          res.json(err);
         }
 
         counterSchema.findOneAndUpdate({
@@ -98,17 +99,18 @@ var register = function register(req, res) {
 
           var User = new user({
             _id: seqId,
-            username: req.body.username,
+            username: req.body.user_name,
             email: req.body.email,
             password: hasspass,
-            role: "user",
+            phone_no: req.body.phone_no,
+            role: req.body.roles,
             status: false
           });
           User.save(function (err, doc) {
             if (!err) {
               res.send(doc);
             } else {
-              console.log(err);
+              res.send(err);
             }
           });
         });
@@ -136,56 +138,68 @@ var count = function count(req, res) {
 var login = function login(req, res) {
   var email = req.body.email;
   var password = req.body.password;
-  user.findOne({
-    email: email
-  }).then(function (User) {
-    console.log(User);
+  var height = req.body.height;
+  var width = req.body.width;
+  console.log(height + ' ' + width);
 
-    if (User) {
-      // console.log(password);
-      // var pass =User.password
-      // console.log(pass);
-      if (User.status == false) {
-        bcrypt.compare(password, User.password, function (err, result) {
-          if (err) {
-            console.log(err);
-          }
+  if (width >= 800 && height >= 350) {
+    user.findOne({
+      email: email
+    }).then(function (User) {
+      console.log(User);
 
-          if (result) {
-            var token = jwt.sign({
-              email: User.email,
-              role: User.role,
-              id: User._id
-            }, tokenPrivacy, {
-              expiresIn: '24h'
-            });
-            var refreshToken = jwt.sign({
-              email: User.email
-            }, 'RefreshTokenverySecretValue', {
-              expiresIn: '48h'
-            });
-            res.json({
-              message: 'login Successfully',
-              token: token,
-              refreshToken: refreshToken
-            });
-          } else {
-            res.json({
-              message: 'Password not match'
-            });
-          }
-        });
+      if (User) {
+        console.log(password);
+        var pass = User.password;
+        console.log(pass);
+
+        if (User.status == false) {
+          bcrypt.compare(password, User.password, function (err, result) {
+            if (err) {
+              console.log(err);
+            }
+
+            if (result) {
+              var token = jwt.sign({
+                email: User.email,
+                username: User.username,
+                role: User.role,
+                id: User._id
+              }, tokenPrivacy, {
+                expiresIn: '24h'
+              });
+              var refreshToken = jwt.sign({
+                email: User.email
+              }, 'RefreshTokenverySecretValue', {
+                expiresIn: '48h'
+              });
+              res.json({
+                message: 'login Successfully',
+                token: token,
+                refreshToken: refreshToken
+              });
+            } else {
+              res.json({
+                message: 'Password not match'
+              });
+            }
+          });
+        } else {
+          res.json({
+            message: "User Inactive"
+          });
+        }
       } else {
         res.json({
-          message: "User Inactive"
+          message: 'user not found'
         });
       }
-    } else {
-      res.json({
-        message: 'user not found'
-      });
-    }
-  });
+    });
+  } else {
+    res.json({
+      message: 'Login With Laptop'
+    });
+  }
 };
 
 var getAllUser = function getAllUser(req, res) {
@@ -230,18 +244,44 @@ var deleteUser = function deleteUser(req, res) {
 };
 
 var updateUser = function updateUser(req, res) {
-  user.findByIdAndUpdate(req.params._id, {
-    username: req.body.username,
-    email: req.body.email,
-    role: req.body.role,
-    status: req.body.status
-  }, function (docs, err) {
-    if (!err) {
-      res.json(docs);
-    } else {
-      res.json(err);
-    }
-  });
+  if (!req.body.password) {
+    user.findByIdAndUpdate(req.params._id, {
+      username: req.body.user_name,
+      email: req.body.email,
+      phone_no: req.body.phone_no,
+      role: req.body.roles,
+      status: req.body.status // password:req.body.password,
+
+    }, function (docs, err) {
+      if (!err) {
+        res.json(docs);
+      } else {
+        res.json(err);
+      }
+    });
+  } else {
+    console.log('Password:' + req.body.password + ' ' + 'username: ' + req.body.user_name);
+    bcrypt.hash(req.body.password, 10, function (err, hasspass) {
+      if (err) {
+        res.json(err);
+      }
+
+      user.findByIdAndUpdate(req.params._id, {
+        username: req.body.user_name,
+        email: req.body.email,
+        phone_no: req.body.phone_no,
+        role: req.body.roles,
+        status: req.body.status,
+        password: hasspass
+      }, function (docs, err) {
+        if (!err) {
+          res.json(docs);
+        } else {
+          res.json(err);
+        }
+      });
+    });
+  }
 };
 
 module.exports = {

@@ -14,6 +14,7 @@ const Shift = mongoose.model("shifts",{
     break2_duration:{type:String,required:true},
     break3:{type:String,required:true},
     break3_duration:{type:String,required:true},
+    status:{type:String,required:true},
     created_by:{type:String},
     created_at:{type:Date},
     updated_by:{type:String},

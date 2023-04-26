@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const financial_year = mongoose.model("financial_yead",{
+const financial_year = mongoose.model("financial_year",{
     _id:{type:Number,required:true},
     year_financial:{type:String,required:true},
     status:{type:String,required:true},

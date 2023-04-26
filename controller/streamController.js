@@ -75,4 +75,5 @@ const updateStream=(req,res)=>{
     })
 }
 
+
 module.exports={addStream,getAllStream,deleteStream,updateStream}

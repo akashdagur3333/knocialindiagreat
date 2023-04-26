@@ -22,6 +22,10 @@ var shiftController = require('../controller/shiftController');
 
 var vsrValueController = require('../controller/vsrValueController');
 
+var ledgerController = require('../controller/ledgerController');
+
+var streamController = require('../controller/streamController');
+
 router.post('/location', office_locationController.addLocation);
 router.get('/location', office_locationController.getAllLocations);
 router["delete"]('/location/:id', office_locationController.deleteLocations);
@@ -46,6 +50,10 @@ router.post('/qualification', qualificationController.addQualification);
 router.get('/qualification', qualificationController.getAllQualification);
 router["delete"]('/qualification/:id', qualificationController.deleteQualification);
 router.put('/qualification/:id', qualificationController.updateQualification);
+router.post('/stream', streamController.addStream);
+router.get('/stream', streamController.getAllStream);
+router["delete"]('/stream/:id', streamController.deleteStream);
+router.put('/stream/:id', streamController.updateStream);
 router.post('/package', packageController.addPackage);
 router.get('/package', packageController.getAllPackage);
 router["delete"]('/package/:id', packageController.deletePackage);
@@ -58,5 +66,8 @@ router.post('/vsrValue', vsrValueController.addVsrValue);
 router.get('/vsrValue', vsrValueController.getAllVsrValue);
 router["delete"]('/vsrValue/:id', vsrValueController.deleteVsrValue);
 router.put('/vsrValue/:id', vsrValueController.updateVsrvalue);
-router.get('/great', vsrValueController.great);
+router.post('/ledger', ledgerController.addLedger);
+router.get('/ledger', ledgerController.getAllLedger);
+router["delete"]('/ledger/:id', ledgerController.deleteLedger);
+router.put('/ledger/:id', ledgerController.updateLedger);
 module.exports = router;
