@@ -31,7 +31,7 @@ var app = express();
 app.use(bodyParser.json()); //https://knocialindia-965e6.web.app
 
 app.use(cors({
-  origin: '*'
+  origin: 'https://knocialindia-965e6.web.app/'
 })); // const PORT =process.env.PORT || 3000;
 // app.listen(PORT,()=>console.log("server is running on 3000"))
 
