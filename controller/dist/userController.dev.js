@@ -142,7 +142,7 @@ var login = function login(req, res) {
   var width = req.body.width;
   console.log(height + ' ' + width);
 
-  if (width >= 800 && height >= 350) {
+  if (width >= 600 && height >= 300) {
     user.findOne({
       email: email
     }).then(function (User) {
