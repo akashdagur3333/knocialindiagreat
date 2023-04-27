@@ -54,6 +54,11 @@ var addReporting = function addReporting(req, res) {
       aadhar_number: req.aadhar_number,
       employee_type: req.employee_type,
       total_vsr: req.total_vsr,
+      paid_vsr: req.paid_vsr,
+      fine: req.fine,
+      paid_fine: req.paid_fine,
+      fineWaiver: req.fineWaiver,
+      vsrWaiver: req.vsrWaiver,
       pending_value: req.total_vsr,
       selection_type: req.selection_type,
       reported_at: req.reported_at,
@@ -166,7 +171,12 @@ var updateReporting = function updateReporting(req, res) {
 
 var updatePendingAmount = function updatePendingAmount(req, res) {
   Reporting.findByIdAndUpdate(req.params.id, {
-    pending_value: req.body.pending_value
+    pending_value: req.body.pending_value,
+    paid_vsr: req.body.paid_vsr,
+    fine: req.body.fine,
+    paid_fine: req.body.paid_fine,
+    fineWaiver: req.body.fineWaiver,
+    vsrWaiver: req.body.vsrWaiver
   }, function (docs, err) {
     if (!err) {
       res.json(docs);

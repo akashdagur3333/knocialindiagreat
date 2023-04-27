@@ -17,6 +17,21 @@ var Reporting = mongoose.model("reporting", {
   total_vsr: {
     type: Number
   },
+  paid_vsr: {
+    type: Number
+  },
+  fine: {
+    type: Number
+  },
+  paid_fine: {
+    type: Number
+  },
+  fineWaiver: {
+    type: Number
+  },
+  vsrWaiver: {
+    type: Number
+  },
   pending_value: {
     type: Number
   },

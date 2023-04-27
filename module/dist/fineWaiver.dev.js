@@ -18,8 +18,8 @@ var FineWaiver = mongoose.model("finewaiver", {
   amount: {
     type: Number
   },
-  remarks: {
-    type: String
+  finePending: {
+    type: Number
   },
   gst_amount: {
     type: Number

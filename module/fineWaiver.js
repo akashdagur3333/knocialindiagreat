@@ -6,7 +6,7 @@ const FineWaiver = mongoose.model("finewaiver",{
     name:{type:String},
     father_name:{type:String},
     amount:{type:Number},
-    remarks:{type:String},
+    finePending:{type:Number},
     gst_amount:{type:Number},
     waived_by:{type:String},
     created_by:{type:String},

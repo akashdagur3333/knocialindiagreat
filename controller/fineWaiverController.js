@@ -22,6 +22,7 @@ const addFineWaiver=(req,res)=>{
                 name:req.body.name,
                 father_name:req.body.father_name,
                 amount:req.body.amount,
+                finePending:req.body.finePending,
                 remarks:req.body.remarks,
                 gst_amount:req.body.gst_amount,
                 waived_by:req.body.waived_by,
