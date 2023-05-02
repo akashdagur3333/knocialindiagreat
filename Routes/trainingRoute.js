@@ -7,6 +7,7 @@ var driveController =require('../controller/driveController');
 
 var studentsController =require('../controller/studentsController');
 
+var testQuestionController =require('../controller/testQuestionController');
 
 router.post('/training_batches',training_batchesController.addBatches);
 router.get('/training_batches',training_batchesController.getAllBatches);
@@ -32,5 +33,10 @@ router.put('/colleges/:id',collegeController.updateColleges);
  router.get('/students',studentsController.getAllStudents);
  router.delete('/students/:id',studentsController.deleteStudents);
  router.put('/students/:id',studentsController.updateStudents);
+
+ router.post('/question',testQuestionController.addQuestion);
+ router.get('/question',testQuestionController.getAllQuestion);
+ router.delete('/question/:id',testQuestionController.deleteQuestion);
+
 
 module.exports=router;
