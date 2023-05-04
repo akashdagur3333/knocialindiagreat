@@ -14,6 +14,8 @@ var studentsController = require('../controller/studentsController');
 
 var testQuestionController = require('../controller/testQuestionController');
 
+var trainingTestController = require('../controller/trainingTestController');
+
 router.post('/training_batches', training_batchesController.addBatches);
 router.get('/training_batches', training_batchesController.getAllBatches);
 router["delete"]('/training_batches/:id', training_batchesController.deleteBatches);
@@ -34,4 +36,8 @@ router.put('/students/:id', studentsController.updateStudents);
 router.post('/question', testQuestionController.addQuestion);
 router.get('/question', testQuestionController.getAllQuestion);
 router["delete"]('/question/:id', testQuestionController.deleteQuestion);
+router.post('/trainingTest', trainingTestController.addTest);
+router.get('/trainingTest', trainingTestController.getAllTest);
+router["delete"]('/trainingTest/:id', trainingTestController.deleteTest);
+router.put('/trainingTest/:id', trainingTestController.updateTest);
 module.exports = router;
