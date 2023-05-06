@@ -166,12 +166,12 @@ var login = function login(req, res) {
                 role: User.role,
                 id: User._id
               }, tokenPrivacy, {
-                expiresIn: '24h'
+                expiresIn: '9h'
               });
               var refreshToken = jwt.sign({
                 email: User.email
               }, 'RefreshTokenverySecretValue', {
-                expiresIn: '48h'
+                expiresIn: '60s'
               });
               res.json({
                 message: 'login Successfully',

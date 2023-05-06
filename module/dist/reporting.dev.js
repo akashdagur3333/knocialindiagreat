@@ -23,7 +23,16 @@ var Reporting = mongoose.model("reporting", {
   fine: {
     type: Number
   },
+  other: {
+    type: Number
+  },
   paid_fine: {
+    type: Number
+  },
+  paid_other: {
+    type: Number
+  },
+  otherWaiver: {
     type: Number
   },
   fineWaiver: {
@@ -33,6 +42,9 @@ var Reporting = mongoose.model("reporting", {
     type: Number
   },
   pending_value: {
+    type: Number
+  },
+  total_value: {
     type: Number
   },
   selection_type: {

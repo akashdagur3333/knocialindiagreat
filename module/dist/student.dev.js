@@ -48,6 +48,12 @@ var Students = mongoose.model("students", {
   contact_no2: {
     type: Number
   },
+  refrence_contact: {
+    type: Number
+  },
+  refrence_name: {
+    type: String
+  },
   status: {
     type: String
   },

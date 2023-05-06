@@ -6,7 +6,7 @@ const counterSchema=require('../module/counter');
 const addColleges=(req,res)=>{
     var req=req.body;
     var statusClg;
-    if(req.tnp_head_name=='' || req.tnp_head_contact=='' || req.tnp_head_email==''){
+    if(req.tnp_head_name=='' || req.tnp_head_name===undefined || req.tnp_head_contact=='' || req.tnp_head_contact===undefined || req.tnp_head_email=='' ||req.tnp_head_email===undefined){
         statusClg=1;
     }
     else{

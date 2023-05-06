@@ -19,7 +19,9 @@ const validate=(req,res)=>{
 
 const addReporting=(req,res)=>{
     var req=req.body;
-    var adhar=req.aadhar_number;
+    const adhar=req.aadhar_number;
+    Reporting.findOne({aadhar_number:adhar}).then(data=>{
+        if(!data){
             counterSchema.findOneAndUpdate(
                 {id:"reporting_seq"},
                 {"$inc":{"seq":1} },{new:true},
@@ -40,10 +42,14 @@ const addReporting=(req,res)=>{
                         total_vsr:req.total_vsr,
                         paid_vsr:req.paid_vsr,
                         fine:req.fine,
+                        other:req.other,
                         paid_fine:req.paid_fine,
+                        paid_other:req.paid_other,
                         fineWaiver:req.fineWaiver,
+                        otherWaiver:req.otherWaiver,
                         vsrWaiver:req.vsrWaiver,
                         pending_value:req.total_vsr,
+                        total_value:req.total_vsr,
                         selection_type:req.selection_type,
                         reported_at:req.reported_at,
                         batch_starting_date:req.batch_starting_date,
@@ -88,7 +94,13 @@ const addReporting=(req,res)=>{
                     });
                 }
             )   
-    
+        }
+        else{
+            res.json({
+                message:'Reporting Exist'
+            })
+        }
+    })
         }
 
 const getAllReporting=(req,res)=>{    
@@ -121,7 +133,6 @@ const updateReporting=(req,res)=>{
         Reporting.findByIdAndUpdate(req.params.id,{
             aadhar_number:req1.aadhar_number,
             employee_type:req1.employee_type,
-            total_vsr:req1.total_vsr,
             selection_type:req1.selection_type,
             reported_at:req1.reported_at,
             batch_starting_date:req1.batch_starting_date,
@@ -169,8 +180,13 @@ const updateReporting=(req,res)=>{
                 paid_vsr:req.body.paid_vsr,
                 fine:req.body.fine,
                 paid_fine:req.body.paid_fine,
+                paid_other:req.body.paid_other,
+                total_value:req.body.total_value,
                 fineWaiver:req.body.fineWaiver,
-                vsrWaiver:req.body.vsrWaiver                
+                vsrWaiver:req.body.vsrWaiver,     
+                otherWaiver:req.body.otherWaiver,  
+                other:req.body.other                           
+                        
             },(docs,err)=>{
                 if(!err){
                     res.json(docs);

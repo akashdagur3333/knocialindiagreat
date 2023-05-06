@@ -57,10 +57,6 @@ var Drives = mongoose.model("drives", {
   travel_type: {
     type: String
   },
-  submit_by: {
-    type: String,
-    required: true
-  },
   created_by: {
     type: String,
     required: true

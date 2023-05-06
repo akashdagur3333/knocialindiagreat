@@ -141,8 +141,8 @@ const login =(req,res)=>{
              console.log(err)
              }
              if(result){
-                 let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id},tokenPrivacy,{expiresIn:'24h'})
-                 let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'48h'})
+                 let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id},tokenPrivacy,{expiresIn:'9h'})
+                 let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'60s'})
                  res.json({
                      message:'login Successfully',
                      token,

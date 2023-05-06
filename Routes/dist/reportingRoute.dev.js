@@ -10,9 +10,13 @@ var RecieptController = require('../controller/recieptController');
 
 var FineController = require('../controller/fineController');
 
+var otherController = require('../controller/otherController');
+
 var FineWaiverController = require('../controller/fineWaiverController');
 
 var VsrWaiverController = require('../controller/VsrWaiverController');
+
+var OtherWaiverController = require('../controller/otherWaiverController');
 
 router.post('/reporting', ReportingController.addReporting);
 router.get('/reporting', ReportingController.getAllReporting);
@@ -32,4 +36,10 @@ router["delete"]('/fineWaiver/:id', FineWaiverController.deleteFineWaiver);
 router.post('/vsrWaiver', VsrWaiverController.addVsrWaiver);
 router.get('/vsrWaiver', VsrWaiverController.getAllVsrWaiver);
 router["delete"]('/vsrWaiver/:id', VsrWaiverController.deleteVsrWaiver);
+router.post('/other', otherController.addOther);
+router.get('/other', otherController.getAllOther);
+router["delete"]('/other/:id', otherController.deleteOther);
+router.post('/otherWaiver', OtherWaiverController.addOtherWaiver);
+router.get('/otherWaiver', OtherWaiverController.getAllOtherWaiver);
+router["delete"]('/otherWaiver/:id', OtherWaiverController.deleteOtherWaiver);
 module.exports = router;

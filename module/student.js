@@ -17,6 +17,8 @@ const Students = mongoose.model("students",{
     package:{type:String},
     contact_no1:{type:Number},
     contact_no2:{type:Number},
+    refrence_contact:{type:Number},
+    refrence_name:{type:String},
     status:{type:String},
 
     college_name:{type:String},

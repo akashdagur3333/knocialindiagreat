@@ -44,7 +44,6 @@ var addDrives = function addDrives(req, res) {
       technical_person: req.technical_person,
       mode_of_travel: req.mode_of_travel,
       travel_type: req.travel_type,
-      submit_by: req.submit_by,
       created_by: req.created_by,
       created_at: Date.now()
     });
@@ -89,7 +88,6 @@ var updateDrives = function updateDrives(req, res) {
     technical_person: req1.technical_person,
     mode_of_travel: req1.mode_of_travel,
     travel_type: req1.travel_type,
-    submit_by: req1.submit_by,
     updated_by: req1.created_by,
     updated_at: Date.now()
   }, function (docs, err) {

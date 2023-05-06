@@ -16,7 +16,6 @@ const Drives = mongoose.model("drives",{
     technical_person:{type:String,required:true},
     mode_of_travel:{type:String},
     travel_type:{type:String},
-    submit_by:{type:String,required:true},
     created_by:{type:String,required:true},
     created_at:{type:Date,required:true},
     updated_by:{type:String},

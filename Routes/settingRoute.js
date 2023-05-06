@@ -21,6 +21,10 @@ var vsrValueController =require('../controller/vsrValueController');
 var ledgerController =require('../controller/ledgerController');
 var streamController =require('../controller/streamController')
 
+var batchSizeController =require('../controller/batchSizeController')
+
+var trainerController =require('../controller/trainerController')
+
 
 router.post('/location',office_locationController.addLocation);
 router.get('/location',office_locationController.getAllLocations);
@@ -78,5 +82,15 @@ router.post('/ledger',ledgerController.addLedger);
 router.get('/ledger',ledgerController.getAllLedger);
 router.delete('/ledger/:id',ledgerController.deleteLedger);
 router.put('/ledger/:id',ledgerController.updateLedger);
+
+router.post('/batchSize',batchSizeController.addBatchSize);
+router.get('/batchSize',batchSizeController.getAllBatchSize);
+router.delete('/batchSize/:id',batchSizeController.deleteBatchSize);
+router.put('/batchSize/:id',batchSizeController.updateBatchSize);
+
+router.post('/trainer',trainerController.addTrainer);
+router.get('/trainer',trainerController.getAllTrainer);
+router.delete('/trainer/:id',trainerController.deleteTrainer);
+router.put('/trainer/:id',trainerController.updateTrainer);
 
 module.exports=router;

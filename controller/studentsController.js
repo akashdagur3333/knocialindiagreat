@@ -38,6 +38,8 @@ const addStudents=(req,res)=>{
                         package:req.package,
                         contact_no1:req.contact_no1,
                         contact_no2:req.contact_no2,
+                        refrence_contact:req.refrence_contact,
+                        refrence_name:req.refrence_name,
                         status:req.status,
 
                         college_name:req.college_name,
@@ -107,6 +109,8 @@ const updateStudents=(req,res)=>{
             contact_no1:req1.contact_no1,
             contact_no2:req1.contact_no2,
             status:req1.status,
+            refrence_contact:req.refrence_contact,
+            refrence_name:req.refrence_name,
             hr_remarks:req1.hr_remarks,
             updated_by:req1.created_by,
             updated_at:Date.now()
