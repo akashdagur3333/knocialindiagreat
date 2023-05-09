@@ -10,6 +10,7 @@ var user= require('./auth');
 var hrManagement=require('./Routes/trainingRoute');
 var setting=require('./Routes/settingRoute');
 var reporting=require('./Routes/reportingRoute');
+var meeting=require('./Routes/meetingRoute')
 const cors = require('cors');
 
 // const server=http.createServer((req,res)=>{
@@ -55,11 +56,7 @@ app.listen(3000,()=>console.log("Server started at port 3000"));
 // },5000);
 
 app.use('/user',user);
-// app.use('/',category);
-// app.use('/',product);
-// app.use('/',addCart);
-// app.use('/',order);
-
+app.use('/',meeting);
 app.use('/',hrManagement);
 app.use('/',setting);
 app.use('/',reporting);

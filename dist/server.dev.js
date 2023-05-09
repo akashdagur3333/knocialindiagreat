@@ -21,6 +21,8 @@ var setting = require('./Routes/settingRoute');
 
 var reporting = require('./Routes/reportingRoute');
 
+var meeting = require('./Routes/meetingRoute');
+
 var cors = require('cors'); // const server=http.createServer((req,res)=>{
 //     res.writeHead(200);
 //     res.end("hello world")
@@ -58,11 +60,8 @@ app.listen(3000, function () {
 //  console.log(time)
 // },5000);
 
-app.use('/user', user); // app.use('/',category);
-// app.use('/',product);
-// app.use('/',addCart);
-// app.use('/',order);
-
+app.use('/user', user);
+app.use('/', meeting);
 app.use('/', hrManagement);
 app.use('/', setting);
 app.use('/', reporting);
