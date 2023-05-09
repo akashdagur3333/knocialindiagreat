@@ -10,12 +10,15 @@ var FineWaiverController =require('../controller/fineWaiverController');
 var VsrWaiverController =require('../controller/VsrWaiverController');
 var OtherWaiverController =require('../controller/otherWaiverController');
 
+var intrainingController =require('../controller/inTrainingController');
+
 router.post('/reporting',ReportingController.addReporting);
 router.get('/reporting',ReportingController.getAllReporting);
 router.delete('/reporting/:id',ReportingController.deleteReporting);
 router.put('/reporting/:id',ReportingController.updateReporting);
 router.post('/validate',ReportingController.validate);
 router.put('/reporting/Pending_value/:id',ReportingController.updatePendingAmount);
+router.put('/reporting/JobStatus/:id',ReportingController.updateJobstatus);
 
 router.post('/reciept',RecieptController.addReciept);
 router.get('/reciept',RecieptController.getAllReciept);
@@ -42,5 +45,9 @@ router.delete('/other/:id',otherController.deleteOther);
 router.post('/otherWaiver',OtherWaiverController.addOtherWaiver);
 router.get('/otherWaiver',OtherWaiverController.getAllOtherWaiver);
 router.delete('/otherWaiver/:id',OtherWaiverController.deleteOtherWaiver);
+
+
+
+router.post('/intraining',intrainingController.addIntraining);
 
 module.exports=router;

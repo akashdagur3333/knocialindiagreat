@@ -12,7 +12,6 @@ var setting=require('./Routes/settingRoute');
 var reporting=require('./Routes/reportingRoute');
 const cors = require('cors');
 
-
 // const server=http.createServer((req,res)=>{
 //     res.writeHead(200);
 //     res.end("hello world")

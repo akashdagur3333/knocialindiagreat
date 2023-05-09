@@ -1,6 +1,7 @@
 var {Reporting}=require('../module/reporting');
 const counterSchema=require('../module/counter');
-var {Students}=require('../module/student')
+var {Students}=require('../module/student');
+var timeZone=require('../dateZone');
 
 const validate=(req,res)=>{
     var req=req.body;
@@ -69,6 +70,7 @@ const addReporting=(req,res)=>{
                         designation:req.designation,
                         nationality:req.nationality,
                         religion:req.religion,
+                        select_batch:req.select_batch,
                         college_name:req.college_name,
                         college_city:req.college_city,
                         college_state:req.college_state,
@@ -80,9 +82,8 @@ const addReporting=(req,res)=>{
                         offer_letter_date:req.offer_letter_date,
                         status:req.status,
                         reported_by:req.reported_by,
-
                         created_by:req.created_by,
-                        created_at:Date.now()
+                        created_at:timeZone.datezone
                     });
                     reporting.save((err,docs)=>{
                         if(!err){
@@ -151,6 +152,7 @@ const updateReporting=(req,res)=>{
             designation:req1.designation,
             nationality:req1.nationality,
             religion:req1.religion,
+            select_batch:req1.select_batch,
             college_name:req1.college_name,
             college_city:req1.college_city,
             college_state:req1.college_state,
@@ -162,7 +164,12 @@ const updateReporting=(req,res)=>{
             offer_letter_date:req1.offer_letter_date,
             reported_by:req1.reported_by,
             updated_by:req1.created_by,
-            updated_at:Date.now()
+            inTraining:req1.inTraining,
+            completeTraining:req1.completeTraining,
+            joined:req1.joined,
+            left:req1.left,
+            updated_at:Date.now(),
+            updated_by:req1.created_by
         },(docs,err)=>{
             if(!err){
                 res.json(docs);
@@ -186,7 +193,6 @@ const updateReporting=(req,res)=>{
                 vsrWaiver:req.body.vsrWaiver,     
                 otherWaiver:req.body.otherWaiver,  
                 other:req.body.other                           
-                        
             },(docs,err)=>{
                 if(!err){
                     res.json(docs);
@@ -198,6 +204,118 @@ const updateReporting=(req,res)=>{
         }
 
 
+        const updateJobstatus = (req,res)=>{
+            console.log(req.body.message)
+            if(req.body.message=='inTraining'){
+                Reporting.findByIdAndUpdate(req.params.id,{
+                    inTraining:{
+                        batch_start:req.body.batch_start,
+                        training_start:req.body.training_start,
+                        address:req.body.address,
+                        pan_card:req.body.pan_card,
+                        name:req.body.name,
+                        contact_number:req.body.contact_number,
+                        relation:req.body.relation,
+                        bank_name:req.body.bank_name,
+                        ac_name:req.body.ac_name,
+                        ac_number:req.body.ac_number,
+                        ac_type:req.body.ac_type,
+                        ifsc_code:req.body.ifsc_code,
+                        micr_code:req.body.micr_code,
+                        esic_number:req.body.esic_number,
+                        epfo_number:req.body.epfo_number,
+                        uan_number:req.body.uan_number,
+                        hr_remarks:req.body.hr_remarks,
+                        document_name:req.body.document_name,
+                        file:req.body.file,
+                        file_name:req.body.file_name,
+                        file_status:req.body.file_status,
+                        deadline:req.body.deadline,
+                        doc_hr_remarks:req.body.doc_hr_remarks,
+                        created_by:req.body.created_by,
+                        created_at:timeZone.datezone
+                    },
+                    status:req.body.status
+                },(docs,err)=>{
+                    if(!err){
+                        res.json(docs);
+                    }
+                    else{
+                        res.json(err);
+                    }
+                })
+            }
+            else if(req.body.message=='trainingComplete'){
+                Reporting.findByIdAndUpdate(req.params.id,{
+                    completeTraining:{
+                        batch_start:req.body.batch_start,
+                        training_start:req.body.training_start,
+                        training_complete:req.body.training_complete,
+                        hr_remarks:req.body.hr_remarks,
+                        created_by:req.body.created_by,
+                        created_at:timeZone.datezone
+                    },
+                    status:req.body.status
+                },(docs,err)=>{
+                    if(!err){
+                        res.json(docs);
+                    }
+                    else{
+                        res.json(err);
+                    }
+                })
+            }
+            else if(req.body.message=='joined'){
+                Reporting.findByIdAndUpdate(req.params.id,{
+                    joined:{
+                        batch_start:req.body.batch_start,
+                        training_start:req.body.training_start,
+                        training_complete:req.body.training_complete,
+                        joining_date:req.body.joining_date,
+                        hr_remarks:req.body.hr_remarks,
+                        created_by:req.body.created_by,
+                        created_at:timeZone.datezone,
+                
+                    },
+                    status:req.body.status
+                },(docs,err)=>{
+                    if(!err){
+                        res.json(docs);
+                    }
+                    else{
+                        res.json(err);
+                    }
+                })
+            }
+            else{
+                Reporting.findByIdAndUpdate(req.params.id,{
+                    left:{
+                        batch_start:req.body.batch_start,
+                        training_start:req.body.training_start,
+                        training_complete:req.body.training_complete,
+                        joining_date:req.body.joining_date,
+                        seperation_date:req.body.seperation_date,
+                        seperation_type:req.body.seperation_type,
+                        rejoining_possible:req.body.rejoining_possible,
+                        hr_remarks:req.body.hr_remarks,
+                        created_by:req.body.created_by,
+                        created_at:timeZone.datezone,
+                        failStatus:req.body.failStatus
+                    },
+                    status:req.body.status
+
+                },(docs,err)=>{
+                    if(!err){
+                        res.json(docs);
+                    }
+                    else{
+                        res.json(err);
+                    }
+                }) 
+            }
+   
+        }
 
 
-module.exports={addReporting,getAllReporting,deleteReporting,updateReporting,validate,updatePendingAmount}
+
+module.exports={addReporting,getAllReporting,deleteReporting,updateReporting,validate,updatePendingAmount,updateJobstatus}

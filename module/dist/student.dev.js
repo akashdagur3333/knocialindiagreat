@@ -40,7 +40,7 @@ var Students = mongoose.model("students", {
     type: String
   },
   "package": {
-    type: String
+    type: Array
   },
   contact_no1: {
     type: Number

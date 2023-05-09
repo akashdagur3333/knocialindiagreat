@@ -56,6 +56,9 @@ var Reporting = mongoose.model("reporting", {
   batch_starting_date: {
     type: Date
   },
+  select_batch: {
+    type: Array
+  },
   employee_name: {
     type: String
   },
@@ -66,7 +69,7 @@ var Reporting = mongoose.model("reporting", {
     type: String
   },
   "package": {
-    type: String
+    type: Array
   },
   gender: {
     type: String
@@ -133,6 +136,18 @@ var Reporting = mongoose.model("reporting", {
   },
   status: {
     type: Number
+  },
+  inTraining: {
+    type: Array
+  },
+  completeTraining: {
+    type: Array
+  },
+  joined: {
+    type: Array
+  },
+  left: {
+    type: Array
   },
   reported_by: {
     type: String
