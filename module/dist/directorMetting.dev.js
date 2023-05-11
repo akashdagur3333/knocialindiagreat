@@ -14,7 +14,7 @@ var DirectorMeeting = mongoose.model("directorMeeting", {
     type: Array
   },
   meeting_date: {
-    type: Date
+    type: String
   },
   shift: {
     type: String
@@ -41,13 +41,13 @@ var DirectorMeeting = mongoose.model("directorMeeting", {
     type: String
   },
   created_at: {
-    type: Date
+    type: String
   },
   updated_by: {
     type: String
   },
   updated_at: {
-    type: Date
+    type: String
   }
 });
 module.exports = {

@@ -6,7 +6,7 @@ const HrActivity = mongoose.model("hrActivity",{
     _id:{type:Number,required:true},
     assign_to:{type:String},
     invite_to:{type:Array},
-    assign_date:{type:Date},
+    assign_date:{type:String},
     shift:{type:String},
     activity_start:{type:String},
     activity_end:{type:String},
@@ -15,9 +15,9 @@ const HrActivity = mongoose.model("hrActivity",{
     activity_description:{type:String},
     hr_remarks:{type:String},
     created_by:{type:String},
-    created_at:{type:Date},
+    created_at:{type:String},
     updated_by:{type:String},
-    updated_at:{type:Date}
+    updated_at:{type:String}
 
 
 })

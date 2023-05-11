@@ -14,7 +14,7 @@ var HrActivity = mongoose.model("hrActivity", {
     type: Array
   },
   assign_date: {
-    type: Date
+    type: String
   },
   shift: {
     type: String
@@ -41,13 +41,13 @@ var HrActivity = mongoose.model("hrActivity", {
     type: String
   },
   created_at: {
-    type: Date
+    type: String
   },
   updated_by: {
     type: String
   },
   updated_at: {
-    type: Date
+    type: String
   }
 });
 module.exports = {

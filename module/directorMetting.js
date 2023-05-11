@@ -6,7 +6,7 @@ const DirectorMeeting = mongoose.model("directorMeeting",{
     _id:{type:Number,required:true},
     assign_to:{type:String},
     invite_to:{type:Array},
-    meeting_date:{type:Date},
+    meeting_date:{type:String},
     shift:{type:String},
     meeting_start:{type:String},
     meeting_end:{type:String},
@@ -15,9 +15,9 @@ const DirectorMeeting = mongoose.model("directorMeeting",{
     meeting_description:{type:String},
     meeting_remarks:{type:String},
     created_by:{type:String},
-    created_at:{type:Date},
+    created_at:{type:String},
     updated_by:{type:String},
-    updated_at:{type:Date}
+    updated_at:{type:String}
 
 })
 
