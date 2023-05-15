@@ -30,6 +30,8 @@ var batchSizeController = require('../controller/batchSizeController');
 
 var trainerController = require('../controller/trainerController');
 
+var relievingController = require('../controller/relievingController');
+
 router.post('/location', office_locationController.addLocation);
 router.get('/location', office_locationController.getAllLocations);
 router["delete"]('/location/:id', office_locationController.deleteLocations);
@@ -82,4 +84,8 @@ router.post('/trainer', trainerController.addTrainer);
 router.get('/trainer', trainerController.getAllTrainer);
 router["delete"]('/trainer/:id', trainerController.deleteTrainer);
 router.put('/trainer/:id', trainerController.updateTrainer);
+router.post('/relieving', relievingController.addRelieving);
+router.get('/relieving', relievingController.getAllRelieving);
+router["delete"]('/relieving/:id', relievingController.deleteRelieving);
+router.put('/relieving/:id', relievingController.updateRelieving);
 module.exports = router;

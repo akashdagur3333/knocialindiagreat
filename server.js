@@ -3,14 +3,13 @@ const bodyParser = require('body-parser');
 const { Mongoose} = require('./db');
 const http =require('http');
 var user= require('./auth');
-// var category=require('./routing/categoryRouting/category-route');
-// var product=require('./routing/categoryRouting/product-route');
-// var addCart=require('./routing/categoryRouting/addCart-route');
-// var order=require('./routing/categoryRouting/orders-route');
 var hrManagement=require('./Routes/trainingRoute');
 var setting=require('./Routes/settingRoute');
 var reporting=require('./Routes/reportingRoute');
-var meeting=require('./Routes/meetingRoute')
+var meeting=require('./Routes/meetingRoute');
+var ClientManagement=require('./Routes/clientManagementRoute');
+var TechnicalManagement=require('./Routes/technicalManagementRoute');
+
 const cors = require('cors');
 
 // const server=http.createServer((req,res)=>{
@@ -60,3 +59,5 @@ app.use('/',meeting);
 app.use('/',hrManagement);
 app.use('/',setting);
 app.use('/',reporting);
+app.use('/',ClientManagement);
+app.use('/',TechnicalManagement);
