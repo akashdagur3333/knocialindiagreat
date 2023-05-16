@@ -1,7 +1,7 @@
 
 const  express =require('express');
 const router = express.Router();
-var TeamController =require('../controller/newTeamController');
+var TeamController =require('../controller/teamController');
 var TotalAssignmentController =require('../controller/totalAssignmentController');
 var TotalTaskController =require('../controller/totalTaskController');
 
@@ -11,7 +11,6 @@ var AssignedTaskController =require('../controller/assignedTaskController');
 router.post('/team',TeamController.addTeam);
 router.get('/team',TeamController.getAllTeam);
 router.delete('/team/:id',TeamController.deleteTeam);
-router.put('/team/:id',TeamController.updateTeam);
 
 
 router.post('/totalAssignment',TotalAssignmentController.addTotalAssignment);
