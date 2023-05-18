@@ -22,7 +22,7 @@ const addTeam=(req,res)=>{
                     {
                       team_lead_rpt_id:req.body.team_lead_rpt_id,
                       team_lead_name:req.body.team_lead_name,
-                      team_lead_department:req.body.team_lead_name,
+                      team_lead_department:req.body.team_lead_department,
                     }
                 ],
                 team_member:req.body.team_member,

@@ -56,7 +56,7 @@ const getAllTotalTask=(req,res)=>{
 }
 
 const deleteTotalTask=(req,res)=>{
-    var deleteid=req.params._id;
+    var deleteid=req.params.id;
     TotalTask.findByIdAndDelete(deleteid,(err,msg)=>{
         if(!err){
           res.json(msg);
@@ -68,19 +68,11 @@ const deleteTotalTask=(req,res)=>{
 }
 
 const updateTotalTask= (req,res)=>{
-    TotalTask.findByIdAndUpdate(req.params._id,{
-        ast_id:req.body.ast_id,
-        prt_id:req.body.prt_id,
-        clt_id:req.body.clt_id,
-        project_name:req.body.project_name,
-        client_name:req.body.client_name,
-        assign_to_department:req.body.assign_to_department,
-        team_lead:req.body.team_lead,
+    TotalTask.findByIdAndUpdate(req.params.id,{
         page_name:req.body.page_name,
         task_description:req.body.task_description,
         file:req.body.file,
         remarks:req.body.remarks,
-        status:req.body.status,
         updated_by:req.body.created_by,
         updated_at:timezone.datezone
     },(err,docs)=>{

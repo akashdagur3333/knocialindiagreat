@@ -72,7 +72,6 @@ const deleteProject=(req,res)=>{
 
 const updateProject = (req,res)=>{
     AddProject.findByIdAndUpdate(req.params.id,{
-        clt_id:req.body.clt_id,
         client_name:req.body.client_name,
         project_category:req.body.project_category,
         project_type:req.body.project_type,

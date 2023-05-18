@@ -16,11 +16,9 @@ const addTotalAssignment=(req,res)=>{
                 seqId=cd.seq;
             }
             var totalAssignment= new TotalAssignment({
-                _id:seqId,
-                ast_id:req.body.ast_id,
+    _id:seqId,
     prt_id:req.body.prt_id,
     project_name:req.body.project_name,
-    order_for:req.body.order_for,
     clt_id:req.body.clt_id,
     client_name:req.body.client_name,
     assign_to_department:req.body.assign_to_department,
@@ -55,7 +53,7 @@ const getAllTotalAssignment=(req,res)=>{
 }
 
 const deleteTotalAssignment=(req,res)=>{
-    var deleteid=req.params._id;
+    var deleteid=req.params.id;
     TotalAssignment.findByIdAndDelete(deleteid,(err,msg)=>{
         if(!err){
           res.json(msg);
@@ -67,20 +65,14 @@ const deleteTotalAssignment=(req,res)=>{
 }
 
 const updateTotalAssignment = (req,res)=>{
-    TotalAssignment.findByIdAndUpdate(req.params._id,{
-        ast_id:req.body.ast_id,
-    prt_id:req.body.prt_id,
-    project_name:req.body.project_name,
-    order_for:req.body.order_for,
-    clt_id:req.body.clt_id,
-    client_name:req.body.client_name,
+    TotalAssignment.findByIdAndUpdate(req.params.id,{
     assign_to_department:req.body.assign_to_department,
     team_lead:req.body.team_lead,
     assignment_date:req.body.assignment_date,
     delivery_date:req.body.delivery_date,
     remarks:req.body.remarks,
-                updated_by:req.body.created_by,
-                updated_at:timezone.datezone
+    updated_by:req.body.created_by,
+    updated_at:timezone.datezone
     },(err,docs)=>{
         if(!err){
             res.json(docs);
