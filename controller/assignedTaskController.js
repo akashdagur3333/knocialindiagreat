@@ -58,7 +58,7 @@ const getAllAssignedTask=(req,res)=>{
 }
 
 const deleteAssignedTask=(req,res)=>{
-    var deleteid=req.params._id;
+    var deleteid=req.params.id;
     AssignedTask.findByIdAndDelete(deleteid,(err,msg)=>{
         if(!err){
           res.json(msg);
@@ -70,18 +70,38 @@ const deleteAssignedTask=(req,res)=>{
 }
 
 const updateAssignedTask= (req,res)=>{
-    AssignedTask.findByIdAndUpdate(req.params._id,{
-        tsk_id:req.body.status,
-    ast_id:req.body.status,
-    prt_id:req.body.status,
-    clt_id:req.body.status,
-    department:req.body.status,
-    team_lead:req.body.status,
-    task_assign_to:req.body.status,
-    task_expiry_date:req.body.status,
-    assigned_by:req.body.status,
-    remarks:req.body.status,
-    status:req.body.status,
+var remark_reAssign;
+var remark_appliedforcheck;
+var remark_completed;
+var remark_failed;
+
+const remark=req.body.status;
+    if(remark==1){
+    remarks=req.body.remarkStatus
+    }
+    else if(remark==2){
+        remark_Assign=req.body.remarkStatus
+     }
+    else if(remark==3){
+        remark_reAssign=req.body.remarkStatus
+     }
+    else if(remark==4){
+        remark_appliedforcheck=req.body.remarkStatus
+     }
+     else if(remark==5){
+        remark_completed=req.body.remarkStatus
+     }
+     else if(remark==6){
+        remark_failed=req.body.remarkStatus
+     }
+    AssignedTask.findByIdAndUpdate(req.params.id,{
+        remark_reAssign:remark_reAssign,
+        remark_appliedforcheck:remark_appliedforcheck,
+        remark_completed:remark_completed,
+        remark_failed:remark_failed,
+        task_expiry_date:req.body.task_expiry_date,
+        status:req.body.status,
+        remarks:req.body.remarks,
         updated_by:req.body.created_by,
         updated_at:timezone.datezone
     },(err,docs)=>{

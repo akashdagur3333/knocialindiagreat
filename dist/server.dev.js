@@ -9,11 +9,7 @@ var _require = require('./db'),
 
 var http = require('http');
 
-var user = require('./auth'); // var category=require('./routing/categoryRouting/category-route');
-// var product=require('./routing/categoryRouting/product-route');
-// var addCart=require('./routing/categoryRouting/addCart-route');
-// var order=require('./routing/categoryRouting/orders-route');
-
+var user = require('./auth');
 
 var hrManagement = require('./Routes/trainingRoute');
 
@@ -22,6 +18,10 @@ var setting = require('./Routes/settingRoute');
 var reporting = require('./Routes/reportingRoute');
 
 var meeting = require('./Routes/meetingRoute');
+
+var ClientManagement = require('./Routes/clientManagementRoute');
+
+var TechnicalManagement = require('./Routes/technicalManagementRoute');
 
 var cors = require('cors'); // const server=http.createServer((req,res)=>{
 //     res.writeHead(200);
@@ -65,3 +65,5 @@ app.use('/', meeting);
 app.use('/', hrManagement);
 app.use('/', setting);
 app.use('/', reporting);
+app.use('/', ClientManagement);
+app.use('/', TechnicalManagement);
