@@ -67,8 +67,6 @@ var register = function register(req, res) {
   user.findOne({
     email: email
   }).then(function (registerUser) {
-    console.log(registerUser);
-
     if (registerUser == null) {
       bcrypt.hash(req.body.password, 10, function (err, hasspass) {
         if (err) {
@@ -99,6 +97,7 @@ var register = function register(req, res) {
 
           var User = new user({
             _id: seqId,
+            rpt_id: req.body.rpt_id,
             username: req.body.user_name,
             email: req.body.email,
             password: hasspass,
@@ -140,7 +139,6 @@ var login = function login(req, res) {
   var password = req.body.password;
   var height = req.body.height;
   var width = req.body.width;
-  console.log(height + ' ' + width);
 
   if (width >= 1000 && height >= 250) {
     user.findOne({
@@ -149,10 +147,6 @@ var login = function login(req, res) {
       console.log(User);
 
       if (User) {
-        console.log(password);
-        var pass = User.password;
-        console.log(pass);
-
         if (User.status == false) {
           bcrypt.compare(password, User.password, function (err, result) {
             if (err) {
@@ -164,7 +158,8 @@ var login = function login(req, res) {
                 email: User.email,
                 username: User.username,
                 role: User.role,
-                id: User._id
+                id: User._id,
+                rpt_id: User.rpt_id
               }, tokenPrivacy, {
                 expiresIn: '9h'
               });

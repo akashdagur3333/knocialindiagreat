@@ -56,8 +56,8 @@ const checkToken=(req,res)=>{
 
 
 const register =(req,res)=>{
-    var rpt_id =req.body.rpt_id;
-    user.findOne({rpt_id}).then(registerUser=>{       
+    var email =req.body.email;
+    user.findOne({email}).then(registerUser=>{       
         if(registerUser==null){    
         bcrypt.hash(req.body.password,10,function(err,hasspass){
         if(err){
