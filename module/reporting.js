@@ -35,6 +35,8 @@ const Reporting = mongoose.model("reporting",{
     identity_mark:{type:String},
     maritial_status:{type:String},
     designation:{type:String},
+    subDepartment:{type:String},
+    department:{type:String},
     nationality:{type:String},
     religion:{type:String},
     college_name:{type:String},

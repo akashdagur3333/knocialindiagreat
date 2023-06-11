@@ -101,6 +101,12 @@ var Reporting = mongoose.model("reporting", {
   designation: {
     type: String
   },
+  subDepartment: {
+    type: String
+  },
+  department: {
+    type: String
+  },
   nationality: {
     type: String
   },

@@ -5,6 +5,9 @@ const jwt =require('jsonwebtoken');
 const connection =require('../db');
 const { tokenPrivacy } = require('../data');
 const { body } = require('express-validator');
+const { getCurrentTime } = require('../getCurrentTime');
+const { addLoginStatus } = require('./LoginStatusController');
+const { datezone } = require('../dateZone');
 // const { user } = require('../auth');
 // const nodemailer= require('nodemailer');
 // const randomstring =require('randomstring');
@@ -84,7 +87,13 @@ const register =(req,res)=>{
                     password:hasspass,
                     phone_no:req.body.phone_no,
                     role:req.body.roles,
-                    status:false
+                    status:req.body.status,
+                    shift:req.body.shift,
+                    department:req.body.department,
+                    designation:req.body.designation,
+                    sub_department:req.body.sub_department,
+                    office_location:req.body.office_location,
+
 }); 
                 User.save((err,doc)=>{
                if(!err){
@@ -127,42 +136,92 @@ const login =(req,res)=>{
     var width=req.body.width
     if(width>=1000 && height>=250){
   user.findOne({email}).then(User=>{
-        console.log(User)
-       if(User){
-       if(User.status==false){
-        bcrypt.compare(password,User.password,function(err,result){
-            if(err){
-             console.log(err)
-             }
-             if(result){
-                 let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id,rpt_id:User.rpt_id},tokenPrivacy,{expiresIn:'9h'})
-                 let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'60s'})
-                 res.json({
-                     message:'login Successfully',
-                     token,
-                     refreshToken
-                 })
-             }
-             else{
-                 res.json({
-                     message:'Password not match'
-                 })
-             }
-            })
-       }
-       else{
-        res.json({
-            message:"User Inactive"
-        })
-       }
-      
-       }
-       else{
-        res.json({
-            message:'user not found'
-        })
-       }
+        // console.log(User.shift[0].shift_start)
 
+        if(User){
+            if(User.status==false){
+             bcrypt.compare(password,User.password,function(err,result){
+                 if(err){
+                  console.log(err)
+                  }
+                  if(result){
+                    if(User.role=='admin' || User.role=='nadmin'){
+                        let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id,rpt_id:User.rpt_id},tokenPrivacy,{expiresIn:'9h'})
+                        let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'60s'})
+                        res.json({
+                            message:'login Successfully',
+                            token,
+                            refreshToken
+                        })
+                    }
+                    else{
+                        var shift=User.shift[0].shift_start;
+                         shift=shift.split(':');
+                        const hours=shift[0];
+                        const minutes=shift[1];
+                        const TotalSeconds=(hours*3600)+(minutes*60);
+                        const loginTime=TotalSeconds-(15*60);
+                        const NotLogin=TotalSeconds+(9*3600);
+                
+                        const currentTime=new Date();
+                        const TimeA=currentTime.toLocaleTimeString();
+                        const h=currentTime.getHours();
+                        const m=currentTime.getMinutes();
+                        const TS=(h*3600)+(m*60);
+                        
+                //    var getTime=TS/60;
+                //    getTime=getTime%60;
+                //    console.log('minutes',getTime);
+                  
+                //   var total=loginTime/60
+                //   var min=total%60;
+                //   var hor=Math.floor(total/60);
+                //   console.log(min,hor)
+                
+                        // console.log('LoginTime',loginTime,' ,NotLogin:-',NotLogin,' curent time',TS)
+                        console.log('LoginTime',loginTime,' ,NotLogin:-',NotLogin,' curent time',TS)
+                        if(loginTime<TS && NotLogin>TS){
+                            let token = jwt.sign({email:User.email,username:User.username,role:User.role,id:User._id,rpt_id:User.rpt_id},tokenPrivacy,{expiresIn:'9h'})
+                            let refreshToken=jwt.sign({email:User.email},'RefreshTokenverySecretValue',{expiresIn:'60s'})
+                            res.json({
+                                message:'login Successfully',
+                                token,
+                                refreshToken
+                            })
+
+                             addLoginStatus(User.rpt_id,User.username,datezone,TimeA,'123')
+                        }
+                        else{
+                            res.json({
+                                message:'Shift Over'
+                            })
+                        }
+                    }   
+                }
+                
+                
+                  else{
+                      res.json({
+                          message:'Password not match'
+                      })
+                  }
+                 })
+            }
+            else{
+             res.json({
+                 message:"User Inactive"
+             })
+            }
+           
+            }
+            else{
+             res.json({
+                 message:'user not found'
+             })
+            }
+    
+   
+    
     })
     }
     else{
@@ -172,6 +231,8 @@ const login =(req,res)=>{
     }
   
 }
+
+
 
 const getAllUser = (req,res)=>{
     user.find((err,docs)=>{

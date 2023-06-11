@@ -7,6 +7,11 @@ var user = mongoose.model("user",{
     phone_no:{type:Number},
     password:{type:String,min:5},
     role:{type:Array},
+    shift:{type:Array},
+    department:{type:String},
+    designation:{type:String},
+    sub_department:{type:String},
+    office_location:{type:Array},
     status:{type:Boolean}
 }); 
 module.exports={user};

@@ -103,7 +103,12 @@ var register = function register(req, res) {
             password: hasspass,
             phone_no: req.body.phone_no,
             role: req.body.roles,
-            status: false
+            status: req.body.status,
+            shift: req.body.shift,
+            department: req.body.department,
+            designation: req.body.designation,
+            sub_department: req.body.sub_department,
+            office_location: req.body.office_location
           });
           User.save(function (err, doc) {
             if (!err) {
@@ -144,50 +149,54 @@ var login = function login(req, res) {
     user.findOne({
       email: email
     }).then(function (User) {
-      console.log(User);
+      // console.log(User.shift[0].shift_start)
+      if (User.role == 'admin' || User.role == 'nadmin') {
+        if (User) {
+          if (User.status == false) {
+            bcrypt.compare(password, User.password, function (err, result) {
+              if (err) {
+                console.log(err);
+              }
 
-      if (User) {
-        if (User.status == false) {
-          bcrypt.compare(password, User.password, function (err, result) {
-            if (err) {
-              console.log(err);
-            }
-
-            if (result) {
-              var token = jwt.sign({
-                email: User.email,
-                username: User.username,
-                role: User.role,
-                id: User._id,
-                rpt_id: User.rpt_id
-              }, tokenPrivacy, {
-                expiresIn: '9h'
-              });
-              var refreshToken = jwt.sign({
-                email: User.email
-              }, 'RefreshTokenverySecretValue', {
-                expiresIn: '60s'
-              });
-              res.json({
-                message: 'login Successfully',
-                token: token,
-                refreshToken: refreshToken
-              });
-            } else {
-              res.json({
-                message: 'Password not match'
-              });
-            }
-          });
+              if (result) {
+                var token = jwt.sign({
+                  email: User.email,
+                  username: User.username,
+                  role: User.role,
+                  id: User._id,
+                  rpt_id: User.rpt_id
+                }, tokenPrivacy, {
+                  expiresIn: '9h'
+                });
+                var refreshToken = jwt.sign({
+                  email: User.email
+                }, 'RefreshTokenverySecretValue', {
+                  expiresIn: '60s'
+                });
+                res.json({
+                  message: 'login Successfully',
+                  token: token,
+                  refreshToken: refreshToken
+                });
+              } else {
+                res.json({
+                  message: 'Password not match'
+                });
+              }
+            });
+          } else {
+            res.json({
+              message: "User Inactive"
+            });
+          }
         } else {
           res.json({
-            message: "User Inactive"
+            message: 'user not found'
           });
         }
       } else {
-        res.json({
-          message: 'user not found'
-        });
+        var shift = User.shift[0].shift_start;
+        console.log(shift);
       }
     });
   } else {
