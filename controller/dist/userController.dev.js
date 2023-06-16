@@ -15,7 +15,16 @@ var _require2 = require('../data'),
     tokenPrivacy = _require2.tokenPrivacy;
 
 var _require3 = require('express-validator'),
-    body = _require3.body; // const { user } = require('../auth');
+    body = _require3.body;
+
+var _require4 = require('../getCurrentTime'),
+    getCurrentTime = _require4.getCurrentTime;
+
+var _require5 = require('./LoginStatusController'),
+    addLoginStatus = _require5.addLoginStatus;
+
+var _require6 = require('../dateZone'),
+    datezone = _require6.datezone; // const { user } = require('../auth');
 // const nodemailer= require('nodemailer');
 // const randomstring =require('randomstring');
 // const config =require('../config/config');
@@ -144,21 +153,27 @@ var login = function login(req, res) {
   var password = req.body.password;
   var height = req.body.height;
   var width = req.body.width;
+  var ipAddress = req.body.ipAddress;
+  var lat = req.body.lat;
+  var lng = req.body.lng;
+  console.log(lat);
+  console.log(lng);
+  console.log(ipAddress);
 
   if (width >= 1000 && height >= 250) {
     user.findOne({
       email: email
     }).then(function (User) {
       // console.log(User.shift[0].shift_start)
-      if (User.role == 'admin' || User.role == 'nadmin') {
-        if (User) {
-          if (User.status == false) {
-            bcrypt.compare(password, User.password, function (err, result) {
-              if (err) {
-                console.log(err);
-              }
+      if (User) {
+        if (User.status == false) {
+          bcrypt.compare(password, User.password, function (err, result) {
+            if (err) {
+              console.log(err);
+            }
 
-              if (result) {
+            if (result) {
+              if (User.role == 'admin' || User.role == 'nadmin') {
                 var token = jwt.sign({
                   email: User.email,
                   username: User.username,
@@ -179,24 +194,72 @@ var login = function login(req, res) {
                   refreshToken: refreshToken
                 });
               } else {
-                res.json({
-                  message: 'Password not match'
-                });
+                var shift = User.shift[0].shift_start;
+                shift = shift.split(':');
+                var hours = shift[0];
+                var minutes = shift[1];
+                var TotalSeconds = hours * 3600 + minutes * 60;
+                var loginTime = TotalSeconds - 15 * 60;
+                var NotLogin = TotalSeconds + 9 * 3600;
+                var currentTime = new Date();
+                var TimeA = currentTime.toLocaleTimeString();
+                var h = currentTime.getHours();
+                var m = currentTime.getMinutes();
+                var TS = h * 3600 + m * 60; //    var getTime=TS/60;
+                //    getTime=getTime%60;
+                //    console.log('minutes',getTime);
+                //   var total=loginTime/60
+                //   var min=total%60;
+                //   var hor=Math.floor(total/60);
+                //   console.log(min,hor)
+                // console.log('LoginTime',loginTime,' ,NotLogin:-',NotLogin,' curent time',TS)
+
+                console.log('LoginTime', loginTime, ' ,NotLogin:-', NotLogin, ' curent time', TS);
+
+                if (loginTime < TS && NotLogin > TS) {
+                  var _token = jwt.sign({
+                    email: User.email,
+                    username: User.username,
+                    role: User.role,
+                    id: User._id,
+                    rpt_id: User.rpt_id
+                  }, tokenPrivacy, {
+                    expiresIn: '9h'
+                  });
+
+                  var _refreshToken = jwt.sign({
+                    email: User.email
+                  }, 'RefreshTokenverySecretValue', {
+                    expiresIn: '60s'
+                  });
+
+                  res.json({
+                    message: 'login Successfully',
+                    token: _token,
+                    refreshToken: _refreshToken
+                  });
+                  addLoginStatus(User.rpt_id, User.username, datezone, TimeA, ipAddress);
+                } else {
+                  res.json({
+                    message: 'Shift Over'
+                  });
+                }
               }
-            });
-          } else {
-            res.json({
-              message: "User Inactive"
-            });
-          }
+            } else {
+              res.json({
+                message: 'Password not match'
+              });
+            }
+          });
         } else {
           res.json({
-            message: 'user not found'
+            message: "User Inactive"
           });
         }
       } else {
-        var shift = User.shift[0].shift_start;
-        console.log(shift);
+        res.json({
+          message: 'user not found'
+        });
       }
     });
   } else {

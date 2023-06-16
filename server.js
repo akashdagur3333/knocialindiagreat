@@ -9,6 +9,7 @@ var reporting=require('./Routes/reportingRoute');
 var meeting=require('./Routes/meetingRoute');
 var ClientManagement=require('./Routes/clientManagementRoute');
 var TechnicalManagement=require('./Routes/technicalManagementRoute');
+var LoginStatus=require('./Routes/loginStatusRoute');
 
 const cors = require('cors');
 
@@ -61,3 +62,4 @@ app.use('/',setting);
 app.use('/',reporting);
 app.use('/',ClientManagement);
 app.use('/',TechnicalManagement);
+app.use('/',LoginStatus);

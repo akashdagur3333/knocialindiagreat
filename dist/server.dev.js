@@ -23,6 +23,8 @@ var ClientManagement = require('./Routes/clientManagementRoute');
 
 var TechnicalManagement = require('./Routes/technicalManagementRoute');
 
+var LoginStatus = require('./Routes/loginStatusRoute');
+
 var cors = require('cors'); // const server=http.createServer((req,res)=>{
 //     res.writeHead(200);
 //     res.end("hello world")
@@ -33,7 +35,7 @@ var app = express();
 app.use(bodyParser.json()); //https://knocialindia-965e6.web.app
 
 app.use(cors({
-  origin: 'http://localhost:4200'
+  origin: '*'
 })); // const PORT =process.env.PORT || 3000;
 // app.listen(PORT,()=>console.log("server is running on 3000"))
 
@@ -67,3 +69,4 @@ app.use('/', setting);
 app.use('/', reporting);
 app.use('/', ClientManagement);
 app.use('/', TechnicalManagement);
+app.use('/', LoginStatus);

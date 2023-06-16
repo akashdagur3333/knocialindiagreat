@@ -134,6 +134,12 @@ const login =(req,res)=>{
     var password=req.body.password
     var height=req.body.height
     var width=req.body.width
+    var ipAddress=req.body.ipAddress;
+    var lat =req.body.lat;
+    var lng=req.body.lng;
+   console.log(lat)
+   console.log(lng);
+   console.log(ipAddress)
     if(width>=1000 && height>=250){
   user.findOne({email}).then(User=>{
         // console.log(User.shift[0].shift_start)
@@ -189,7 +195,7 @@ const login =(req,res)=>{
                                 refreshToken
                             })
 
-                             addLoginStatus(User.rpt_id,User.username,datezone,TimeA,'123')
+                             addLoginStatus(User.rpt_id,User.username,datezone,TimeA,ipAddress);
                         }
                         else{
                             res.json({
