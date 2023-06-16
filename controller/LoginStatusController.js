@@ -109,13 +109,7 @@ const getAllLoginStatusById=(req,res)=>{
                 array.push(data)
             })
             res.json(array)
-        //   var date=moment(docs.date).format('YYYY-MM-DD')
-        //    data={
-        //     title:docs.name,
-        //     date:date,
-        //     color:'6598'
-        //    }
-        //    console.log(docs)
+      console.log(array)
         }
         else{
             res.json(err)
